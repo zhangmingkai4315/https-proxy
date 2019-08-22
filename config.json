@@ -1,0 +1,15 @@
+{
+    "app": {
+        "server": "0.0.0.0",
+        "port": "10001"
+    },
+    "proxy": [
+        {
+            "location": "/",
+            "upstream": "https://172.104.70.251",
+            "client_cert": "./test_data/client.crt",
+            "client_key": "./test_data/client.key",
+            "ca_cert": "./test_data/rootCA.pem"
+        }
+    ]
+}
