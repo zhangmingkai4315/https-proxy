@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 )
 
 // Proxy define the proxy behaivor struct
@@ -61,6 +62,9 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		w.Write([]byte("proxy error:" + err.Error()))
 		return
+	}
+	for h, val := range response.Header {
+		w.Header().Set(h, strings.Join(val, " "))
 	}
 	w.Write(data)
 }

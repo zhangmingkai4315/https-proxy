@@ -20,12 +20,13 @@ func (app *appConfig) ListenAt() string {
 }
 
 type proxyConfig struct {
-	Location   string `json:"location"`
-	Upstream   string `json:"upstream"`
-	ClientCert string `json:"client_cert"`
-	ClientKey  string `json:"client_key"`
-	CACert     string `json:"ca_cert"`
-	tlsConfig  *tls.Config
+	SkipServerValidation bool   `json:"skip_server_ssL_validation"`
+	Location             string `json:"location"`
+	Upstream             string `json:"upstream"`
+	ClientCert           string `json:"client_cert"`
+	ClientKey            string `json:"client_key"`
+	CACert               string `json:"ca_cert"`
+	tlsConfig            *tls.Config
 }
 
 // Config hold all configuration
@@ -90,8 +91,9 @@ func loadCertAndKeyFile(proxy *proxyConfig) error {
 	}
 
 	tlsConfig := &tls.Config{
-		Certificates: []tls.Certificate{cert},
-		RootCAs:      clientCACertPool,
+		Certificates:       []tls.Certificate{cert},
+		RootCAs:            clientCACertPool,
+		InsecureSkipVerify: proxy.SkipServerValidation,
 	}
 	proxy.tlsConfig = tlsConfig
 	return nil
