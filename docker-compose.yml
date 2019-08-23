@@ -1,0 +1,8 @@
+version: '3'
+services:
+  app:
+    image: golang:1.9.1-alpine 
+    volumes:
+      - .:/go/src/github.com/zhangmingkai4315/https-proxy
+    working_dir: /go/src/github.com/zhangmingkai4315/https-proxy
+    command: go run *.go
