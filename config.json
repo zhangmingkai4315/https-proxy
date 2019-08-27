@@ -7,7 +7,7 @@
         {
             "skip_server_ssL_validation": true,
             "location": "/",
-            "upstream": "https://172.104.70.251",
+            "upstream": "https://172.104.70.251/02/02",
             "client_cert": "./test_data/client.crt",
             "client_key": "./test_data/client.key",
             "ca_cert": "./test_data/rootCA.pem"

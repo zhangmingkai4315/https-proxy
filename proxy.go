@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -40,9 +39,7 @@ func (p *Proxy) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	log.Printf("find proxy setting for local url %s", req.RequestURI)
-	url := fmt.Sprintf("%s%s", proxyconfig.Upstream, req.RequestURI)
-
-	proxyReq, err := http.NewRequest(req.Method, url, bytes.NewReader(body))
+	proxyReq, err := http.NewRequest(req.Method, proxyconfig.Upstream, bytes.NewReader(body))
 	proxyReq.Header = make(http.Header)
 	for h, val := range req.Header {
 		proxyReq.Header[h] = val

@@ -3,7 +3,7 @@ package_name="https-proxy"
 platforms="linux/amd64"
 rm -rf build
 mkdir build
-VER="v1.0.0"
+VER="v1.0.1"
 for platform in $platforms
 do
     var=$(echo $platform | awk -F"/" '{print $1,$2}')   
