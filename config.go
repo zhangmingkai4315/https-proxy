@@ -77,14 +77,19 @@ func loadCertAndKeyFile(proxy *proxyConfig) error {
 			return err
 		}
 	}
-	clientCACertPool := x509.NewCertPool()
+
+	rootCAs, _ := x509.SystemCertPool()
+	if rootCAs == nil {
+		rootCAs = x509.NewCertPool()
+	}
+
 	if proxy.CACert != "" {
 		log.Printf("load ca cert for proxy:%s", proxy.Location)
 		caCert, err := ioutil.ReadFile(proxy.CACert)
 		if err != nil {
 			return err
 		}
-		ok := clientCACertPool.AppendCertsFromPEM(caCert)
+		ok := rootCAs.AppendCertsFromPEM(caCert)
 		if ok != true {
 			return errors.New("ca certs add fail")
 		}
@@ -92,7 +97,7 @@ func loadCertAndKeyFile(proxy *proxyConfig) error {
 
 	tlsConfig := &tls.Config{
 		Certificates:       []tls.Certificate{cert},
-		RootCAs:            clientCACertPool,
+		RootCAs:            rootCAs,
 		InsecureSkipVerify: proxy.SkipServerValidation,
 	}
 	proxy.tlsConfig = tlsConfig
