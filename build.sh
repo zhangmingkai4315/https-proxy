@@ -3,7 +3,7 @@ package_name="https-proxy"
 platforms="linux/amd64"
 rm -rf build
 mkdir build
-VER="v1.1.0"
+VER="v1.2.0"
 for platform in $platforms
 do
     var=$(echo $platform | awk -F"/" '{print $1,$2}')   
@@ -12,7 +12,6 @@ do
     GOOS=$1
     GOARCH=$2
     output_name=$package_name'-'$VER'-'$GOOS'-'$GOARCH
-
     env GOOS=$GOOS GOARCH=$GOARCH CGO_ENABLED=0 go build --ldflags "-extldflags -static" -tags netgo -o $output_name .
     if [ $? -ne 0 ]; then
         echo 'An error has occurred! Aborting the script execution'
