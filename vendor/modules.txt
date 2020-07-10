@@ -1,0 +1,35 @@
+# github.com/devopsfaith/flatmap v0.0.0-20190628155411-90b768d6668b
+github.com/devopsfaith/flatmap/tree
+# github.com/devopsfaith/krakend v1.1.1
+github.com/devopsfaith/krakend/config
+github.com/devopsfaith/krakend/core
+github.com/devopsfaith/krakend/encoding
+github.com/devopsfaith/krakend/logging
+github.com/devopsfaith/krakend/proxy
+github.com/devopsfaith/krakend/register
+github.com/devopsfaith/krakend/register/internal
+github.com/devopsfaith/krakend/router
+github.com/devopsfaith/krakend/router/gin
+github.com/devopsfaith/krakend/sd
+github.com/devopsfaith/krakend/transport/http/client
+github.com/devopsfaith/krakend/transport/http/server
+# github.com/gin-contrib/sse v0.0.0-20170109093832-22d885f9ecc7
+github.com/gin-contrib/sse
+# github.com/gin-gonic/gin v1.1.5-0.20170702092826-d459835d2b07
+github.com/gin-gonic/gin
+github.com/gin-gonic/gin/binding
+github.com/gin-gonic/gin/render
+# github.com/golang/protobuf v1.0.0
+github.com/golang/protobuf/proto
+# github.com/mattn/go-isatty v0.0.3
+github.com/mattn/go-isatty
+# github.com/ugorji/go v0.0.0-20180112141927-9831f2c3ac10
+github.com/ugorji/go/codec
+# github.com/valyala/fastrand v1.0.0
+github.com/valyala/fastrand
+# golang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a
+golang.org/x/sys/unix
+# gopkg.in/go-playground/validator.v8 v8.18.2
+gopkg.in/go-playground/validator.v8
+# gopkg.in/yaml.v2 v2.2.2
+gopkg.in/yaml.v2

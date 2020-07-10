@@ -1,45 +1,32 @@
 package main
 
 import (
+	"github.com/devopsfaith/krakend/config"
+	"github.com/devopsfaith/krakend/logging"
+	"github.com/devopsfaith/krakend/proxy"
+	"github.com/devopsfaith/krakend/router/gin"
 	"flag"
-	"net/http"
+	"log"
 	"os"
-
-	log "github.com/sirupsen/logrus"
 )
 
-var (
-	config string
-	port   string
-	help   bool
-	debug  bool
-)
-
-func init() {
-	flag.BoolVar(&debug, "d", false, "enable debug mode")
-	flag.StringVar(&config, "c", "config.json", "config file for application and proxy")
-	flag.BoolVar(&help, "h", false, "help")
-}
-
-func main() {
+func main(){
+	port := flag.Int("p", 0, "port of the service")
+	logLevel := flag.String("l", "ERROR", "logging level")
+	debug := flag.Bool("d", false, "Enable the debug")
+	configFile := flag.String("c", "krakend.json","path to the configuration file")
 	flag.Parse()
-	if help == true {
-		flag.Usage()
-		os.Exit(0)
+
+	parser := config.NewParser()
+	serviceConfig, err := parser.Parse(*configFile)
+	if err != nil{
+		log.Fatal("Error:", err.Error())
 	}
-	if debug == true {
-		log.Info("set application in debug mode")
-		log.SetLevel(log.DebugLevel)
+	serviceConfig.Debug = serviceConfig.Debug || *debug
+	if *port != 0{
+		serviceConfig.Port = *port
 	}
-	config, err := LoadConfig(config)
-	if err != nil {
-		log.Panicf("read config file error:%s", err)
-	}
-	proxy := NewProxy(config)
-	listenAt := config.Application.ListenAt()
-	log.Infof("start proxy serve in %s", listenAt)
-	err = http.ListenAndServe(listenAt, proxy)
-	if err != nil {
-		log.Error(err)
-	}
+	logger, _ := logging.NewLogger(*logLevel, os.Stdout, "[Proxy]")
+	routerFactory := gin.DefaultFactory(proxy.DefaultFactory(logger), logger)
+	routerFactory.New().Run(serviceConfig)
 }

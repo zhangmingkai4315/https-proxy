@@ -1,0 +1,27 @@
+{
+  "version":2,
+  "extra_config":{},
+  "endpoints":[
+    {
+      "endpoint": "/v1/foo+bar",
+      "extra_config": {
+        "github.com/devopsfaith/krakend-ratelimit/juju/router": {
+          "maxRate": 5000
+        }
+      },
+      "backend": [
+        {
+          "url_pattern": "/todos/1",
+          "host": [
+            "https://jsonplaceholder.typicode.com"
+          ]
+        },
+        {
+          "url_pattern": "/users/1",
+          "host": [
+            "https://jsonplaceholder.typicode.com"
+          ]
+        }
+      ]
+    }]
+}
